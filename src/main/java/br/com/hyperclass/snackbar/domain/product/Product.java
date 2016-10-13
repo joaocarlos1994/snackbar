@@ -13,12 +13,12 @@ package br.com.hyperclass.snackbar.domain.product;
  * @author João Batista
  * @version 1.0 11 de out de 2016
  */
-public class Products {
+public class Product {
 	
 	private final String name;
 	private final double price;
 	
-	public Products(String name, double price) {
+	public Product(String name, double price) {
 		super();
 		this.name = name;
 		this.price = price;
