@@ -22,6 +22,7 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
 public class Cart {
 
 	private final List<Product> productsCart;
+	private Stock stock;
 
 	public Cart() {
 		super();
@@ -29,7 +30,9 @@ public class Cart {
 	}
 
 	public void addItemCart(final Product product) {
-		this.productsCart.add(product);
+		if (stock.contains(product)) {
+			this.productsCart.add(product);
+		}
 	}
 
 	public void removeItemCart(final Product product) {
@@ -54,5 +57,11 @@ public class Cart {
 
 		return total;
 	}
+	
+	public void setStock(final Stock stock) {
+		this.stock = stock;
+	}
 
+	
+	
 }

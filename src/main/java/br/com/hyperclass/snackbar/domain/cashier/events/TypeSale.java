@@ -4,7 +4,7 @@
  * Copyright (c) 2016, hyperCLASS. All rights reserved. hyperCLASS
  * proprietary/confidential. Use is subject to license terms.
  */
-package br.com.hyperclass.snackbar.domain.sale;
+package br.com.hyperclass.snackbar.domain.cashier.events;
 
 /**
  * 

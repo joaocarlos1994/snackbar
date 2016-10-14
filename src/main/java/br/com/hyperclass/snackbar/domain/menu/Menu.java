@@ -11,7 +11,6 @@ import java.util.List;
 
 import br.com.hyperclass.snackbar.domain.cart.Cart;
 import br.com.hyperclass.snackbar.domain.product.Product;
-import br.com.hyperclass.snackbar.domain.stock.Stock;
 
 /**
  * 
@@ -23,13 +22,10 @@ public class Menu {
 
 	private final List<Product> products;
 	private Cart cart;
-	private final Stock stock;
 
-	public Menu(final List<Product> products, final Stock stock) {
+	public Menu(final List<Product> products) {
 		super();
 		this.products = products;
-		this.stock = stock;
-		
 	}
 
 	public void addProductMenu(final Product product) {
@@ -52,11 +48,16 @@ public class Menu {
 
 	public void addProductCart(final Product product){
 		if(products.contains(product)){
+			setCart(new Cart());
 			this.cart.addItemCart(product);
 		}
 	}
 
 	public List<Product> getProducts() {
 		return Collections.unmodifiableList(products);
+	}
+
+	private void setCart(final Cart cart){
+		this.cart = cart;
 	}
 }

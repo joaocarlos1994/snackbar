@@ -7,8 +7,12 @@
 package br.com.hyperclass.snackbar.domain.stock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
+import br.com.hyperclass.snackbar.domain.cart.Cart;
 import br.com.hyperclass.snackbar.domain.menu.Menu;
 import br.com.hyperclass.snackbar.domain.product.Product;
 
@@ -18,7 +22,7 @@ import br.com.hyperclass.snackbar.domain.product.Product;
  * @author João Batista
  * @version 1.0 13 de out de 2016
  */
-public class Stock {
+public class Stock implements Observer {
 	
 	private final List<Product> products;
 	private Menu menu;
@@ -33,6 +37,12 @@ public class Stock {
 		menu.addProductCart(product);
 	}
 
+	public void removeItemStock(final Product product){
+		if (contains(product)) {
+			products.remove(product);
+		}
+	}
+	
 	public boolean contains(Product product) {
 		if (products.contains(product)) {
 			return true;
@@ -50,8 +60,20 @@ public class Stock {
 		return quantity;
 	}
 	
+	public List<Product> getProducts() {
+		return Collections.unmodifiableList(products);
+	}
+
 	public void setMenu(final Menu menu){
 		this.menu = menu;
+	}
+
+	@Override
+	public void update(Observable o, Object cart) {
+		final Cart cart1 = (Cart) cart;
+		for (Product product : cart1.getProductsCart()) {
+			removeItemStock(product);
+		}
 	}
 
 }
