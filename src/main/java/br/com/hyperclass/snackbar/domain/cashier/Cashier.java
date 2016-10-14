@@ -8,14 +8,11 @@ package br.com.hyperclass.snackbar.domain.cashier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-import br.com.hyperclass.snackbar.domain.cart.Cart;
 import br.com.hyperclass.snackbar.domain.cashier.events.EventSale;
 import br.com.hyperclass.snackbar.domain.cashier.events.SaleCompletedEvent;
 import br.com.hyperclass.snackbar.domain.cashier.events.TypeSale;
-import br.com.hyperclass.snackbar.domain.stock.Stock;
+import br.com.hyperclass.snackbar.domain.order.Order;
 
 /**
  * 
@@ -23,22 +20,19 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
  * @author João Batista
  * @version 1.0 11 de out de 2016
  */
-public class Cashier extends Observable {
+public class Cashier {
 	
-	private final Cart cart;
+	private final Order cart;
 	private final List<EventSale> salesEvent = new ArrayList<>();
 
-	public Cashier(final Cart cart) {
+	public Cashier(final Order cart) {
 		super();
 		this.cart = cart;
-		//addObserver(new Stock());
 	}
 	
 	public void checkout(final double money, final TypeSale typeSale){
 		if(money > cart.priceTotalCart()){
 			this.salesEvent.add(new SaleCompletedEvent(typeSale, cart));
-			notifyObservers(cart);
 		}
 	}
-
 }

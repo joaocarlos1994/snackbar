@@ -9,7 +9,7 @@ package br.com.hyperclass.snackbar.domain.cashier.events;
 import java.util.Date;
 import java.util.EventObject;
 
-import br.com.hyperclass.snackbar.domain.cart.Cart;
+import br.com.hyperclass.snackbar.domain.order.Order;
 
 /**
  * 
@@ -19,6 +19,7 @@ import br.com.hyperclass.snackbar.domain.cart.Cart;
  */
 public abstract class EventSale extends EventObject implements Comparable<EventSale> {
 
+	private static final long serialVersionUID = 1L;
 
 	public EventSale(final ContextEventSale context) {
 		super(context);
@@ -32,7 +33,7 @@ public abstract class EventSale extends EventObject implements Comparable<EventS
 		return getSource().getDate();
 	}
 	
-	public Cart getCart(){
+	public Order getCart(){
 		return getSource().getCart();
 	}
 

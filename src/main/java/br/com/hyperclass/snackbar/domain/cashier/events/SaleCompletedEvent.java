@@ -6,7 +6,7 @@
  */
 package br.com.hyperclass.snackbar.domain.cashier.events;
 
-import br.com.hyperclass.snackbar.domain.cart.Cart;
+import br.com.hyperclass.snackbar.domain.order.Order;
 
 /**
  * 
@@ -18,7 +18,7 @@ public class SaleCompletedEvent extends EventSale {
 
 	private static final long serialVersionUID = 1L;
 
-	public SaleCompletedEvent(final TypeSale typeSale, final Cart cart) {
+	public SaleCompletedEvent(final TypeSale typeSale, final Order cart) {
 		super(new ContextEventSale(typeSale, cart));
 	}
 

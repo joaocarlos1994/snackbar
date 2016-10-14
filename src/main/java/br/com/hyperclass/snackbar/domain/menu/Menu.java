@@ -9,7 +9,7 @@ package br.com.hyperclass.snackbar.domain.menu;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.hyperclass.snackbar.domain.cart.Cart;
+import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
 
 /**
@@ -21,7 +21,7 @@ import br.com.hyperclass.snackbar.domain.product.Product;
 public class Menu {
 
 	private final List<Product> products;
-	private Cart cart;
+	private Order order;
 
 	public Menu(final List<Product> products) {
 		super();
@@ -30,7 +30,7 @@ public class Menu {
 
 	public void addProductMenu(final Product product) {
 
-		if (products.contains(product)) {
+		if (!products.contains(product)) {
 			this.products.add(product);
 		} else {
 			new IllegalArgumentException("Object exist in list");
@@ -47,17 +47,19 @@ public class Menu {
 	}
 
 	public void addProductCart(final Product product){
-		if(products.contains(product)){
-			setCart(new Cart());
-			this.cart.addItemCart(product);
+		
+		if (products.contains(product)) {
+			
+			if (order == null) {
+				order = new Order();
+			}
+			
+			this.order.addItemCart(product);
 		}
 	}
 
 	public List<Product> getProducts() {
 		return Collections.unmodifiableList(products);
 	}
-
-	private void setCart(final Cart cart){
-		this.cart = cart;
-	}
+	
 }

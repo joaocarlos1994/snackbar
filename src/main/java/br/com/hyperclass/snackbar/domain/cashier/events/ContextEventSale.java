@@ -8,7 +8,7 @@ package br.com.hyperclass.snackbar.domain.cashier.events;
 
 import java.util.Date;
 
-import br.com.hyperclass.snackbar.domain.cart.Cart;
+import br.com.hyperclass.snackbar.domain.order.Order;
 
 /**
  * 
@@ -20,9 +20,9 @@ public class ContextEventSale {
 
 	private final Date date;
 	private final TypeSale typeSale;
-	private final Cart cart;
+	private final Order cart;
 
-	public ContextEventSale(final TypeSale typeSale, final  Cart cart) {
+	public ContextEventSale(final TypeSale typeSale, final  Order cart) {
 		super();
 		this.date = new Date();
 		this.typeSale = typeSale;
@@ -37,7 +37,7 @@ public class ContextEventSale {
 		return typeSale;
 	}
 
-	public Cart getCart() {
+	public Order getCart() {
 		return cart;
 	}
 }

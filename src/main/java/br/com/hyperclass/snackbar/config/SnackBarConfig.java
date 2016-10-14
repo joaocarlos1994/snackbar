@@ -26,12 +26,7 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
 public class SnackBarConfig {
 	
 	@Bean
-	public Stock getStock(){
-		return new Stock();
-	}
-	
-	@Bean
-	public Menu menu(){
+	public Menu getMenu(){
 		
 		List<Product> products = new ArrayList<>();
 		
@@ -41,7 +36,20 @@ public class SnackBarConfig {
 			}
 		}
 		
-		return new Menu(products);
+		final Menu menu = new Menu(products);
+		
+		return menu;
+	}
+	
+	@Bean
+	public Stock getStock(){
+		
+		final Stock stock = new Stock();
+		
+		stock.addItemStock(new Product("Coca", 3.00));
+		stock.addItemStock(new Product("Pastel que o Augusto me deve", 14.00));
+		
+		return stock;
 	}
 	
 }
