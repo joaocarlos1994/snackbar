@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.hyperclass.snackbar.domain.menu.Menu;
+import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.domain.stock.Stock;
 
@@ -36,7 +37,7 @@ public class SnackBarConfig {
 			}
 		}
 		
-		final Menu menu = new Menu(products);
+		final Menu menu = new Menu(products, getStock());
 		
 		return menu;
 	}
@@ -46,10 +47,15 @@ public class SnackBarConfig {
 		
 		final Stock stock = new Stock();
 		
-		stock.addItemStock(new Product("Coca", 3.00));
+		stock.addItemStock(new Product("Coca", 3.0));
 		stock.addItemStock(new Product("Pastel que o Augusto me deve", 14.00));
 		
 		return stock;
+	}
+	
+	public Order getOrder(){
+		final Order order = new Order(getMenu());
+		return order;
 	}
 	
 }

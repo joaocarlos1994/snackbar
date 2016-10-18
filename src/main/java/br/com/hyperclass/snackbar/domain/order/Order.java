@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import br.com.hyperclass.snackbar.domain.menu.Menu;
 import br.com.hyperclass.snackbar.domain.product.Product;
+import br.com.hyperclass.snackbar.domain.user.User;
 
 /**
  * 
@@ -21,14 +23,19 @@ import br.com.hyperclass.snackbar.domain.product.Product;
 public class Order {
 
 	private final List<Product> productsOrder;
+	private User user;
+	private final Menu menu;
 
-	public Order() {
+	public Order(final Menu menu) {
 		super();
 		this.productsOrder = new ArrayList<Product>();
+		this.menu = menu;
 	}
 
 	public void addItemCart(final Product product) {
-		this.productsOrder.add(product);
+		if (menu.productsAvaible(product)) {
+			this.productsOrder.add(product);
+		}
 	}
 
 	public void removeItemCart(final Product product) {
@@ -54,4 +61,14 @@ public class Order {
 		return total;
 	}
 
+	
+	public List<Product> productsMenu(){
+		return menu.getProducts();
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 }

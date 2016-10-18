@@ -9,8 +9,8 @@ package br.com.hyperclass.snackbar.domain.menu;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
+import br.com.hyperclass.snackbar.domain.stock.Stock;
 
 /**
  * 
@@ -20,18 +20,19 @@ import br.com.hyperclass.snackbar.domain.product.Product;
  */
 public class Menu {
 
-	private final List<Product> products;
-	private Order order;
+	private final List<Product> productsMenu;
+	private final Stock stock;
 
-	public Menu(final List<Product> products) {
+	public Menu(final List<Product> products, final Stock stock) {
 		super();
-		this.products = products;
+		this.productsMenu = products;
+		this.stock = stock;
 	}
 
 	public void addProductMenu(final Product product) {
 
-		if (!products.contains(product)) {
-			this.products.add(product);
+		if (!productsMenu.contains(product)) {
+			this.productsMenu.add(product);
 		} else {
 			new IllegalArgumentException("Object exist in list");
 		}
@@ -39,27 +40,22 @@ public class Menu {
 
 	public void removeProductMenu(final Product product) {
 
-		if (products.contains(product)) {
-			this.products.remove(product);
+		if (productsMenu.contains(product)) {
+			this.productsMenu.remove(product);
 		} else {
 			new IllegalArgumentException("Object not exist in list");
 		}
 	}
 
-	public void addProductCart(final Product product){
-		
-		if (products.contains(product)) {
-			
-			if (order == null) {
-				order = new Order();
-			}
-			
-			this.order.addItemCart(product);
-		}
-	}
-
 	public List<Product> getProducts() {
-		return Collections.unmodifiableList(products);
+		return Collections.unmodifiableList(productsMenu);
 	}
 	
+	public boolean productsAvaible(final Product product){
+		if (stock.contains(product)) {
+			return true;
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
 }

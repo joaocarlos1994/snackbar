@@ -52,12 +52,5 @@ public class MenuController {
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		menu.removeProductMenu(product);
 	}
-	
-	@RequestMapping(value = "/menu/add-order", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void addProductOrder(@RequestBody final ProductWrapper productWrapper){
-		
-		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
-		menu.addProductCart(product);
-	}
 
 }
