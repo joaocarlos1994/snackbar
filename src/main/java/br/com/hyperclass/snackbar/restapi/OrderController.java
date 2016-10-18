@@ -8,6 +8,7 @@ package br.com.hyperclass.snackbar.restapi;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class OrderController {
 	
 	private final Order order;
 	
+	@Autowired
 	public OrderController(final Order order) {
 		super();
 		this.order = order;

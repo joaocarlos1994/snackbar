@@ -9,6 +9,7 @@ package br.com.hyperclass.snackbar.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -53,6 +54,8 @@ public class SnackBarConfig {
 		return stock;
 	}
 	
+	@Bean
+	@Value(value="session")
 	public Order getOrder(){
 		final Order order = new Order(getMenu());
 		return order;
