@@ -16,4 +16,14 @@ public enum TypeSale {
 	
 	CREDIT, DEBIT, MONEY, CHECK;
 	
+	public static TypeSale getTypeSale(final String type){
+		
+		if (type.equals(CREDIT)) return TypeSale.CREDIT;
+		if (type.equals(DEBIT)) return TypeSale.DEBIT;
+		if (type.equals(MONEY.name())) return TypeSale.MONEY;
+		if (type.equals(CHECK)) return TypeSale.CHECK;
+		
+		throw new IllegalArgumentException("Type not exist");
+	}
+	
 }

@@ -9,10 +9,13 @@ package br.com.hyperclass.snackbar.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
+import br.com.hyperclass.snackbar.domain.cashier.Cashier;
 import br.com.hyperclass.snackbar.domain.menu.Menu;
 import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
@@ -55,9 +58,16 @@ public class SnackBarConfig {
 	}
 	
 	@Bean
-	@Value(value="session")
+	@Scope(value= WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public Order getOrder(){
 		return new Order(getMenu());
+	}
+	
+	@Bean
+	public Cashier getCashier(){
+		final Cashier cashier = new Cashier(getOrder());
+		cashier.addObserverCashier(getStock());
+		return cashier;
 	}
 	
 }

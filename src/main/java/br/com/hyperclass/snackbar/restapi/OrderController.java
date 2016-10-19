@@ -43,7 +43,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/order/all", method = RequestMethod.GET)
 	public List<Product> orderItemProducts() {
-		return order.getProductsCart();
+		return order.getProductsOrder();
 	}
 	
 	@RequestMapping(value = "/order/add-item", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

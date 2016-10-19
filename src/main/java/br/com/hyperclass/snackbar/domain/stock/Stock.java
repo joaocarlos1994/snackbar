@@ -9,6 +9,8 @@ package br.com.hyperclass.snackbar.domain.stock;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import br.com.hyperclass.snackbar.domain.product.Product;
 
@@ -18,7 +20,7 @@ import br.com.hyperclass.snackbar.domain.product.Product;
  * @author João Batista
  * @version 1.0 13 de out de 2016
  */
-public class Stock {
+public class Stock implements Observer {
 	
 	private final List<Product> products;
 	
@@ -56,5 +58,14 @@ public class Stock {
 	
 	public List<Product> getProducts() {
 		return Collections.unmodifiableList(products);
+	}
+
+	@Override
+	public void update(Observable arg0, Object products) {
+		@SuppressWarnings("unchecked")
+		final List<Product> productsOrder = (List<Product>) products;
+		for (Product product : productsOrder) {
+			removeItemStock(product);
+		}
 	}
 }

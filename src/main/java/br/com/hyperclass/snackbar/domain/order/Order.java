@@ -6,6 +6,7 @@
  */
 package br.com.hyperclass.snackbar.domain.order;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +21,7 @@ import br.com.hyperclass.snackbar.domain.user.User;
  * @author João Batista
  * @version 1.0 11 de out de 2016
  */
-public class Order {
+public class Order implements Serializable {
 
 	private final List<Product> productsOrder;
 	private User user;
@@ -46,7 +47,7 @@ public class Order {
 		}
 	}
 
-	public List<Product> getProductsCart() {
+	public List<Product> getProductsOrder() {
 		return Collections.unmodifiableList(productsOrder);
 	}
 
@@ -61,6 +62,9 @@ public class Order {
 		return total;
 	}
 
+	public int quatityItemOrder(){
+		return productsOrder.size();
+	}
 	
 	public List<Product> productsMenu(){
 		return menu.getProducts();
@@ -70,5 +74,4 @@ public class Order {
 		this.user = user;
 	}
 
-	
 }
