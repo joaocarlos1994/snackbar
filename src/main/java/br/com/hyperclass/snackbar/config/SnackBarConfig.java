@@ -57,8 +57,7 @@ public class SnackBarConfig {
 	@Bean
 	@Value(value="session")
 	public Order getOrder(){
-		final Order order = new Order(getMenu());
-		return order;
+		return new Order(getMenu());
 	}
 	
 }
