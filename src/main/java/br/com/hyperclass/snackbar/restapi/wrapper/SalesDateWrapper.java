@@ -8,7 +8,6 @@ package br.com.hyperclass.snackbar.restapi.wrapper;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import br.com.hyperclass.snackbar.restapi.deserializer.ProductDeserialize;
 import br.com.hyperclass.snackbar.restapi.deserializer.SalesDateDeserialize;
 
 /**

@@ -6,10 +6,10 @@
  */
 package br.com.hyperclass.snackbar.restapi;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.hyperclass.snackbar.domain.menu.Menu;
 import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductWrapper;
+import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 
 /**
  * 
@@ -37,20 +38,22 @@ public class MenuController {
 	}
 
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public List<Product> menuItemProducts() {
-		return menu.getProducts();
+	public ResponseEntity<ProductsWrapper> menuItemProducts() {
+		return new ResponseEntity<>(new ProductsWrapper(menu.getProducts()), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/menu/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void registerProduct(@RequestBody final ProductWrapper productWrapper){
+	public ResponseEntity<ProductWrapper> registerProduct(@RequestBody final ProductWrapper productWrapper){
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		menu.addProductMenu(product);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/menu/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void deleteProduct(@RequestBody final ProductWrapper productWrapper){
+	public ResponseEntity<ProductWrapper> deleteProduct(@RequestBody final ProductWrapper productWrapper){
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		menu.removeProductMenu(product);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

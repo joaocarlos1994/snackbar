@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hyperclass.snackbar.domain.cashier.Cashier;
 import br.com.hyperclass.snackbar.domain.cashier.events.EventSale;
-import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.restapi.wrapper.PaySaleWrapper;
+import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.SalesDateWrapper;
 
 /**
@@ -45,15 +47,13 @@ public class CashierController {
 	}
 	
 	@RequestMapping(value = "/cashier/order", method = RequestMethod.GET)
-	public List<Product> orderItemProducts() {
-		return cashier.productsInCashier();
+	public ResponseEntity<ProductsWrapper> orderItemProducts() {
+		return new ResponseEntity<ProductsWrapper>(new ProductsWrapper(cashier.productsInCashier()), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/cashier/checkout", method = RequestMethod.POST)
-	public void checkout(@RequestBody final PaySaleWrapper paySaleWrapper) {
+	public ResponseEntity<PaySaleWrapper> checkout(@RequestBody final PaySaleWrapper paySaleWrapper) {
 		cashier.checkout(paySaleWrapper.getMoney(), paySaleWrapper.getTypeSale());
+		return new ResponseEntity<PaySaleWrapper>(HttpStatus.OK);	
 	}
-	
-	
-	
 }
