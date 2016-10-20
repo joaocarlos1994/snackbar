@@ -34,19 +34,12 @@ public class Stock implements Observer {
 	}
 
 	public void removeItemStock(final Product product){
-		if (contains(product)) {
+		if (products.contains(product)) {
 			products.remove(product);
 		}
 	}
 	
-	public boolean contains(final Product product) {
-		if (products.contains(product)) {
-			return true;
-		}
-		return false;
-	}
-	
-	public double quantityStockItem(final Product product){
+	public int quantityStockItem(final Product product){
 		int quantity = 0;
 		for (final Product productItem : products){
 			if(productItem.equals(product)){
@@ -68,4 +61,31 @@ public class Stock implements Observer {
 			removeItemStock(product);
 		}
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((products == null) ? 0 : products.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Stock other = (Stock) obj;
+		if (products == null) {
+			if (other.products != null)
+				return false;
+		} else if (!products.equals(other.products))
+			return false;
+		return true;
+	}
+	
+	
 }

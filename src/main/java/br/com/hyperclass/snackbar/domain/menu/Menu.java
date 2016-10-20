@@ -52,10 +52,10 @@ public class Menu {
 	}
 	
 	public boolean productsAvaible(final Product product){
-		if (stock.contains(product)) {
+		if (stock.quantityStockItem(product) > 0) {
 			return true;
 		} else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Products not Avaible");
 		}
 	}
 }

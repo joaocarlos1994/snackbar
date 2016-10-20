@@ -79,12 +79,12 @@ public class Cashier {
 		}
 	}
 	
-	public List<EventSale> saleForDate(final long time){
+/*	public List<EventSale> saleByDate(final long time){
 		final Date date = new Date(time);
 		return Collections.unmodifiableList(salesEvent.get(date));
-	}
+	}*/
 	
-	public Map<Date, List<EventSale>> saleForPeriod(final long time1, final long time2){
+	public Map<Date, List<EventSale>> saleByPeriod(final long time1, final long time2){
 		
 		final Map<Date, List<EventSale>> eventsForPerido = new WeakHashMap<>();
 		
