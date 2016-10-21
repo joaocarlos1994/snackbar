@@ -8,6 +8,9 @@ package br.com.hyperclass.snackbar.restapi.serializer;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -15,7 +18,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
-import br.com.hyperclass.snackbar.util.BeanRetriever;
 
 /**
  * 
@@ -23,13 +25,15 @@ import br.com.hyperclass.snackbar.util.BeanRetriever;
  * @author João Batista
  * @version 1.0 20 de out de 2016
  */
+@Component
 public class ProductsSerializer extends JsonSerializer<ProductsWrapper> {
 	
 	private final Serializer productSerializer;
 
-	public ProductsSerializer(Serializer productSerializer) {
+	@Autowired
+	public ProductsSerializer(final Serializer productSerializer) {
 		super();
-		this.productSerializer = BeanRetriever.getBean("getProductSerializer", ProductSerializer.class);
+		this.productSerializer = productSerializer;
 	}
 
 

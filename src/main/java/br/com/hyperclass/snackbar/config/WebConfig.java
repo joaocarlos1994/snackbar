@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
@@ -22,7 +23,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @EnableWebMvc
 @ComponentScan(basePackages = {"br.com.hyperclass.snackbar.restapi", "br.com.hyperclass.snackbar.restapi.deserializer",
 		"br.com.hyperclass.snackbar.restapi.serializer"})
-//@Import(EventosSerializersConfig.class)
+@Import(SnackBarSerializersConfig.class)
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override

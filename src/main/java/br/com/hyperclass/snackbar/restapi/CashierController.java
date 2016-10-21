@@ -23,6 +23,7 @@ import br.com.hyperclass.snackbar.domain.cashier.events.EventSale;
 import br.com.hyperclass.snackbar.restapi.wrapper.PaySaleWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.SalesDateWrapper;
+import br.com.hyperclass.snackbar.restapi.wrapper.SalesReportWrapper;
 
 /**
  * 
@@ -42,8 +43,8 @@ public class CashierController {
 	}
 	
 	@RequestMapping(value = "/cashier/sale-by-date", method = RequestMethod.POST)
-	public Map<Date, List<EventSale>> saleForDate(@RequestBody final SalesDateWrapper salesDateWrapper) {
-		return cashier.saleByPeriod(salesDateWrapper.getDateInitial(), salesDateWrapper.getDateFinal());
+	public ResponseEntity<SalesReportWrapper> saleForDate(@RequestBody final SalesDateWrapper salesDateWrapper) {
+		return new ResponseEntity<>(new SalesReportWrapper(cashier.saleByPeriod(salesDateWrapper.getDateInitial(), salesDateWrapper.getDateInitial())), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/cashier/order", method = RequestMethod.GET)
