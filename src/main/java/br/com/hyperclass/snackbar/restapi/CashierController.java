@@ -6,10 +6,6 @@
  */
 package br.com.hyperclass.snackbar.restapi;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hyperclass.snackbar.domain.cashier.Cashier;
-import br.com.hyperclass.snackbar.domain.cashier.events.EventSale;
 import br.com.hyperclass.snackbar.restapi.wrapper.PaySaleWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.SalesDateWrapper;

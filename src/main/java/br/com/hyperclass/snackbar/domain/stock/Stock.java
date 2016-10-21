@@ -33,16 +33,23 @@ public class Stock implements Observer {
 		this.products.add(product);
 	}
 
-	public void removeItemStock(final Product product){
+	public void removeItemStock(final Product product) {
+		
 		if (products.contains(product)) {
 			products.remove(product);
+		}
+		
+		try {
+			throw new ProductUnavailableExcpetion();
+		} catch (ProductUnavailableExcpetion e) {
+			e.printStackTrace();
 		}
 	}
 	
 	public int quantityStockItem(final Product product){
 		int quantity = 0;
-		for (final Product productItem : products){
-			if(productItem.equals(product)){
+		for (final Product productItem : products) {
+			if (productItem.equals(product)) {
 				quantity += 1;
 			}
 		}

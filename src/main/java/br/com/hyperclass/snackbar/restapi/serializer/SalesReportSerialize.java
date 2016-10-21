@@ -50,7 +50,7 @@ public class SalesReportSerialize extends JsonSerializer<SalesReportWrapper> {
 		
 
 		for (List<EventSale> event: events.values()) {
-			eventSale(events.get(new Date(1477015200533l)), jsonGenerator, serializerProvider);
+			eventSale(event, jsonGenerator, serializerProvider);
 		}
 		
 		jsonGenerator.writeEndObject();
@@ -66,7 +66,9 @@ public class SalesReportSerialize extends JsonSerializer<SalesReportWrapper> {
 			jsonGenerator.writeNumberField("total", eventSale.getCart().priceTotalCart());
 			jsonGenerator.writeNumberField("quantity", eventSale.getCart().quatityItemOrder());
 			
+			jsonGenerator.writeFieldName("products");
 			productsSerializer.serialize(new ProductsWrapper(eventSale.getCart().getProductsOrder()), jsonGenerator, serializerProvider);
+			
 		}
 	}
 

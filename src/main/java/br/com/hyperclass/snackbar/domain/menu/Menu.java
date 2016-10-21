@@ -6,6 +6,7 @@
  */
 package br.com.hyperclass.snackbar.domain.menu;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,8 +19,9 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
  * @author João Batista
  * @version 1.0 13 de out de 2016
  */
-public class Menu {
+public class Menu implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private final List<Product> productsMenu;
 	private final Stock stock;
 

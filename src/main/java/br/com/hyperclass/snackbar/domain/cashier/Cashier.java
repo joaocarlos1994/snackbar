@@ -88,13 +88,13 @@ public class Cashier {
 		
 		final Map<Date, List<EventSale>> eventsForPerido = new WeakHashMap<>();
 		
-		final Date date = new Date(time1);
-		final Date date2 = new Date(time2);
+		final Date date = returnDay(time1);
+		final Date date2 = returnDay(time2);
 		
 		for (final Entry<Date, List<EventSale>> eventSale : salesEvent.entrySet()) {
 			
-			if (eventSale.getKey().getTime() >= date.getTime() && eventSale.getKey().getTime() <= date2.getTime()) {
-				eventsForPerido.put(eventSale.getKey(), salesEvent.get(eventSale));
+			if (eventSale.getKey().getTime() >= date.getTime() || eventSale.getKey().getTime() <= date2.getTime()) {
+				eventsForPerido.put(eventSale.getKey(), eventSale.getValue());
 			}
 		}
 		
@@ -114,5 +114,43 @@ public class Cashier {
 		if (salesEvent.containsKey(date)) return true;
 		return false;
 	}
+	
+	@SuppressWarnings("deprecation")
+	private Date returnDay(final long date){
+		
+		Date day = new Date(date);
+		day.setHours(0);
+		day.setMinutes(0);
+		day.setSeconds(0);
+		
+		return day;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((salesEvent == null) ? 0 : salesEvent.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cashier other = (Cashier) obj;
+		if (salesEvent == null) {
+			if (other.salesEvent != null)
+				return false;
+		} else if (!salesEvent.equals(other.salesEvent))
+			return false;
+		return true;
+	}
+	
+	
 	
 }
