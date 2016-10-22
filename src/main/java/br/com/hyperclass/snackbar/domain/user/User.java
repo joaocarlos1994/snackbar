@@ -22,8 +22,8 @@ public class User {
 		this.perfilAuthority = perfilAuthority;
 	}
 
-	public PerfilAuthority getPerfilAuthority() {
-		return perfilAuthority;
+	public String getPerfilAuthority() {
+		return perfilAuthority.name();
 	}
 	
 	
