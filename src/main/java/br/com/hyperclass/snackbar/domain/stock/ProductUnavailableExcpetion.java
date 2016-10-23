@@ -14,4 +14,6 @@ package br.com.hyperclass.snackbar.domain.stock;
  */
 public class ProductUnavailableExcpetion extends StockException {
 
+	private static final long serialVersionUID = 1L;
+
 }

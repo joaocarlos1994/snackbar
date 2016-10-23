@@ -48,7 +48,7 @@ public class CashierController {
 	}
 	
 	@RequestMapping(value = "/cashier/checkout", method = RequestMethod.POST)
-	public ResponseEntity<PaySaleWrapper> checkout(@RequestBody final PaySaleWrapper paySaleWrapper) {
+	public ResponseEntity<PaySaleWrapper> checkout(@RequestBody final PaySaleWrapper paySaleWrapper) throws Exception {
 		cashier.checkout(paySaleWrapper.getMoney(), paySaleWrapper.getTypeSale());
 		return new ResponseEntity<PaySaleWrapper>(HttpStatus.OK);	
 	}

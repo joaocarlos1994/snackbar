@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import br.com.hyperclass.snackbar.domain.cashier.events.EventSale;
+import br.com.hyperclass.snackbar.domain.cashier.events.SaleCompletedEvent;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.SalesReportWrapper;
 
@@ -61,13 +62,15 @@ public class SalesReportSerialize extends JsonSerializer<SalesReportWrapper> {
 		
 		for (final EventSale eventSale : eventSales) {
 			
-			jsonGenerator.writeStringField("typeSale", eventSale.getSale().name());
-			jsonGenerator.writeNumberField("date", eventSale.getDate().getTime());
-			jsonGenerator.writeNumberField("total", eventSale.getCart().priceTotalCart());
-			jsonGenerator.writeNumberField("quantity", eventSale.getCart().quatityItemOrder());
+			final SaleCompletedEvent saleCompletedEvent = (SaleCompletedEvent) eventSale;
+			
+			jsonGenerator.writeStringField("typeSale", saleCompletedEvent.getSale().name());
+			jsonGenerator.writeNumberField("date", saleCompletedEvent.getDate().getTime());
+			jsonGenerator.writeNumberField("total", saleCompletedEvent.totalOrder());
+			jsonGenerator.writeNumberField("quantity", saleCompletedEvent.totalItemOrder());
 			
 			jsonGenerator.writeFieldName("products");
-			productsSerializer.serialize(new ProductsWrapper(eventSale.getCart().getProductsOrder()), jsonGenerator, serializerProvider);
+			productsSerializer.serialize(new ProductsWrapper(saleCompletedEvent.productsSale()), jsonGenerator, serializerProvider);
 			
 		}
 	}

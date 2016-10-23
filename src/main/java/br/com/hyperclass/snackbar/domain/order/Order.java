@@ -23,6 +23,8 @@ import br.com.hyperclass.snackbar.domain.user.User;
  */
 public class Order implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private final List<Product> productsOrder;
 	private User user;
 	private final Menu menu;
@@ -51,7 +53,7 @@ public class Order implements Serializable {
 		return Collections.unmodifiableList(productsOrder);
 	}
 
-	public double priceTotalCart() {
+	public double priceTotalOrder() {
 
 		double total = 0;
 

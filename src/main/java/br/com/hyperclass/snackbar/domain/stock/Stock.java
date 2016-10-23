@@ -9,10 +9,9 @@ package br.com.hyperclass.snackbar.domain.stock;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import br.com.hyperclass.snackbar.domain.product.Product;
+import br.com.hyperclass.snackbar.util.Observer;
 
 /**
  * 
@@ -33,17 +32,12 @@ public class Stock implements Observer {
 		this.products.add(product);
 	}
 
-	public void removeItemStock(final Product product) {
+	public void removeItemStock(final Product product) throws StockException {
 		
 		if (products.contains(product)) {
 			products.remove(product);
 		}
-		
-		try {
-			throw new ProductUnavailableExcpetion();
-		} catch (ProductUnavailableExcpetion e) {
-			e.printStackTrace();
-		}
+		throw new ProductUnavailableExcpetion();
 	}
 	
 	public int quantityStockItem(final Product product){
@@ -61,7 +55,7 @@ public class Stock implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object products) {
+	public void notify(final Object products) throws StockException {
 		@SuppressWarnings("unchecked")
 		final List<Product> productsOrder = (List<Product>) products;
 		for (Product product : productsOrder) {

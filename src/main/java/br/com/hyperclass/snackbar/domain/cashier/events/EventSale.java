@@ -9,8 +9,6 @@ package br.com.hyperclass.snackbar.domain.cashier.events;
 import java.util.Date;
 import java.util.EventObject;
 
-import br.com.hyperclass.snackbar.domain.order.Order;
-
 /**
  * 
  * 
@@ -31,10 +29,6 @@ public abstract class EventSale extends EventObject implements Comparable<EventS
 	
 	public Date getDate(){
 		return getSource().getDate();
-	}
-	
-	public Order getCart(){
-		return getSource().getCart();
 	}
 
 	@Override

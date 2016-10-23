@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Observer;
 import java.util.WeakHashMap;
 
 import br.com.hyperclass.snackbar.domain.cashier.events.EventSale;
@@ -22,6 +21,7 @@ import br.com.hyperclass.snackbar.domain.cashier.events.TypeSale;
 import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.domain.stock.Stock;
+import br.com.hyperclass.snackbar.util.Observer;
 
 /**
  * 
@@ -43,11 +43,11 @@ public class Cashier {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void checkout(final double money, final String saleType){
+	public void checkout(final double money, final String saleType) throws Exception{
 		
 		final TypeSale typeSale = TypeSale.getTypeSale(saleType);
 		
-		if (money >= order.priceTotalCart() && order.quatityItemOrder() > 0) {
+		if (money >= order.priceTotalOrder() && order.quatityItemOrder() > 0) {
 			
 			DATE_TODAY = Calendar.getInstance().getTime();
 			DATE_TODAY.setHours(0);
@@ -73,9 +73,9 @@ public class Cashier {
 		}
 	}
 	
-	private void notifyObserver(final Order order){
+	private void notifyObserver(final Order order) throws Exception{
 		for (Observer observer : observerCashier) {
-			observer.update(null, order.getProductsOrder());
+			observer.notify(order.getProductsOrder());
 		}
 	}
 	
