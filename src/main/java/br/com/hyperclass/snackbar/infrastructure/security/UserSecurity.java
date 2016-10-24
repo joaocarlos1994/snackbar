@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.hyperclass.snackbar.domain.user.PerfilAuthority;
+import br.com.hyperclass.snackbar.domain.user.User;
 
 /**
  * 
@@ -43,8 +44,8 @@ public class UserSecurity implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		addUserRole(new UserRole(PerfilAuthority.ADMIN));
-		addUserRole(new UserRole(PerfilAuthority.COUNTER));
+		addUserRole(new UserRole(new User(PerfilAuthority.ADMIN)));
+		addUserRole(new UserRole(new User(PerfilAuthority.COUNTER)));
 		return userRoles;
 	}
 

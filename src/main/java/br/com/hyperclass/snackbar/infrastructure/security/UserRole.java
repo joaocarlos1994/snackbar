@@ -8,7 +8,6 @@ package br.com.hyperclass.snackbar.infrastructure.security;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import br.com.hyperclass.snackbar.domain.user.PerfilAuthority;
 import br.com.hyperclass.snackbar.domain.user.User;
 
 /**
@@ -17,17 +16,24 @@ import br.com.hyperclass.snackbar.domain.user.User;
  * @author João Batista
  * @version 1.0 22 de out de 2016
  */
-public class UserRole extends User implements GrantedAuthority {
+public class UserRole implements GrantedAuthority {
 
 	private static final long serialVersionUID = 1L;
 	
-	public UserRole(PerfilAuthority perfilAuthority) {
-		super(perfilAuthority);
+	private final User user;
+	
+	public UserRole(final User user) {
+		this.user = user;
 	}
 	
 	@Override
 	public String getAuthority() {
-		return super.getPerfilAuthority();
+		return user.getPerfilAuthority();
+	}
+	
+	public boolean isAdmin(){
+		if(user.getPerfilAuthority().equals("ADMIN")) return true;
+		return false;
 	}
 
 }

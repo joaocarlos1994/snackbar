@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import authentication.PreAuthenticatedUserFilter;
-import br.com.hyperclass.snackbar.infrastructure.repository.UserRepository;
+import br.com.hyperclass.snackbar.infrastructure.service.UserService;
 
 /**
  * 
@@ -39,6 +39,14 @@ import br.com.hyperclass.snackbar.infrastructure.repository.UserRepository;
 @ComponentScan(basePackages = { "br.com.hyperclass.snackbar.infrastructure" })
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	/**
+	 * A classe interface <code>AuthenticationManager</code> tenta autenticar um objeto passado
+	 * por parametro retornando um object autenticacao preenchida com seus papeis em caso de sucesso.
+	 * 
+	 * Classe que implementa deve identificar o método de Autenthenthication de usuário e direciona-la
+	 * para AuthenticationProvider apropriado.
+	 * 
+	 */
 	@Autowired
 	@Qualifier("jwtAuthenticationManager")
 	private AuthenticationManager jwtAuthenticationManager;
@@ -67,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(new UserRepository()).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(new UserService()).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean

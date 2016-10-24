@@ -4,9 +4,8 @@
  * Copyright (c) 2016, hyperCLASS. All rights reserved. hyperCLASS
  * proprietary/confidential. Use is subject to license terms.
  */
-package br.com.hyperclass.snackbar.infrastructure.repository;
+package br.com.hyperclass.snackbar.infrastructure.service;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,8 +18,9 @@ import org.springframework.stereotype.Component;
  * @version 1.0 22 de out de 2016
  */
 @Component
-@Qualifier("userRepository")
-public class UserRepository implements UserDetailsService {
+public class UserService implements UserDetailsService {
+	
+	//private final UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
