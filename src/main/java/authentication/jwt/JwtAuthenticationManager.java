@@ -14,6 +14,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -36,7 +37,7 @@ import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository
 public class JwtAuthenticationManager implements AuthenticationManager {
 
     private final UserSecurityRepository repository;
-    private final List<JwtVerifier> verifiersList = new ArrayList<>();
+    //private final List<JwtVerifier> verifiersList = new ArrayList<>();
 
     @Autowired
     public JwtAuthenticationManager(final UserSecurityRepository repository) {
@@ -58,16 +59,16 @@ public class JwtAuthenticationManager implements AuthenticationManager {
             throw new JwtTokenException("The given JWT could not be parsed.");
         }
 
-        for (final JwtVerifier verifier : verifiersList) {
+        /*for (final JwtVerifier verifier : verifiersList) {
             verifier.verify(jwt);
-        }
+        }*/
 
         final String username = claims.getSubject();
         return new PreAuthenticatedAuthentication(repository.loadUserByUsername(username));
     }
 
-    @Resource
+ /*   @Resource
     public void setVerifiersList(final List<JwtVerifier> verifiersList) {
         this.verifiersList.addAll(verifiersList);
-    }
+    }*/
 }

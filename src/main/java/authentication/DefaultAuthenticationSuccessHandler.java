@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,7 @@ import org.springframework.stereotype.Component;
  * @author Roberto Perillo
  * @version 1.0 03/09/2015
  */
-@Component
+//@Component
 public class DefaultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     /** Lista de <i>handlers</i> a atuarem após o <i>login</i> com sucesso */
@@ -50,14 +49,14 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication auth)
             throws IOException, ServletException {
-        final AuthenticationEvent event = new AuthenticationEvent(response, auth);
+      /*  final AuthenticationEvent event = new AuthenticationEvent(response, auth);
         for (final AuthenticationListener listener : authenticationListeners) {
             listener.onAuthenticationSuccess(event);
-        }
+        }*/
     }
 
-    @Resource
+/*    @Resource
     public void setAuthenticationListeners(final List<AuthenticationListener> authenticationListeners) {
         this.authenticationListeners.addAll(authenticationListeners);
-    }
+    }*/
 }

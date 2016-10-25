@@ -14,8 +14,6 @@ import java.util.Iterator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
-import br.com.hyperclass.snackbar.domain.user.User;
-import br.com.hyperclass.snackbar.infrastructure.security.Role;
 import br.com.hyperclass.snackbar.infrastructure.security.UserSecurity;
 
 /**

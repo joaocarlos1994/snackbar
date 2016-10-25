@@ -8,6 +8,8 @@ package br.com.hyperclass.snackbar.infrastructure.security;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * 
  * 
@@ -16,9 +18,9 @@ import java.util.List;
  */
 public interface UserSecurityRepository {
 	
-	void add(final UserSecurity userSecurity);
-	void remove(final UserSecurity userSecurity);
+	void add(final UserDetails userSecurity);
+	void remove(final UserDetails userSecurity);
 	UserSecurity loadUserByUsername(final String name);
-	List<UserSecurity> all();
+	List<UserDetails> all();
 	
 }

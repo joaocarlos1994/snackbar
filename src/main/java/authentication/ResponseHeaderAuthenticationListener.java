@@ -29,7 +29,7 @@ import com.nimbusds.jwt.SignedJWT;
  * @author Roberto Perillo
  * @version 1.0 05/02/2016
  */
-@Component
+//@Component
 public class ResponseHeaderAuthenticationListener implements AuthenticationListener {
 
     private static final long FIVE_HOURS_IN_MILLISECONDS = 60000 * 300;

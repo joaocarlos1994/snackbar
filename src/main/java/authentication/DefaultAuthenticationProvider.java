@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.com.hyperclass.snackbar.infrastructure.service.UserService;
+import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository;
 
 
 
@@ -29,14 +29,14 @@ import br.com.hyperclass.snackbar.infrastructure.service.UserService;
 @Component
 public class DefaultAuthenticationProvider implements AuthenticationProvider {
 
-	@Autowired
-	private BCryptPasswordEncoder encoder;
-    private final UserService userService;
+	private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
+    private final UserSecurityRepository userSecurityRepository;
     
     @Autowired
-	public DefaultAuthenticationProvider(final UserService userService) {
+	public DefaultAuthenticationProvider(final UserSecurityRepository userSecurityRepository) {
 		super();
-		this.userService = userService;
+		this.userSecurityRepository = userSecurityRepository;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider {
 		final String username = authentication.getName();
 		final String password = authentication.getCredentials().toString();
 		
-		UserDetails user = userService.loadUserByUsername(username);
+		UserDetails user = userSecurityRepository.loadUserByUsername(username);
 		if (encoder.matches(user.getPassword(), password)) {
 			Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
 			return auth;
