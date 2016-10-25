@@ -15,7 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 import br.com.hyperclass.snackbar.domain.user.User;
-import br.com.hyperclass.snackbar.infrastructure.security.UserRole;
+import br.com.hyperclass.snackbar.infrastructure.security.Role;
+import br.com.hyperclass.snackbar.infrastructure.security.UserSecurity;
 
 /**
  * A classe <code>PreAuthenticatedAuthentication</code> representa um usuário
@@ -30,14 +31,14 @@ public class PreAuthenticatedAuthentication extends PreAuthenticatedAuthenticati
 
     private static final long serialVersionUID = 1L;
 
-    public PreAuthenticatedAuthentication(final UserRole userRole) {
-        super(userRole, Arrays.asList(new DefaultGrantedAuthority(userRole)));
+    public PreAuthenticatedAuthentication(final UserSecurity userSecurity) {
+        super(userSecurity, Arrays.asList(new DefaultGrantedAuthority(userSecurity.getRole())));
         setAuthenticated(true);
     }
 
     @Override
-    public User getPrincipal() {
-        return (User) super.getPrincipal();
+    public UserSecurity getPrincipal() {
+        return (UserSecurity) super.getPrincipal();
     }
 
     public boolean isAdmin() {

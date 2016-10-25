@@ -6,6 +6,8 @@
  */
 package br.com.hyperclass.snackbar.domain.user;
 
+import java.security.Principal;
+
 /**
  * A classe <code>User</code> representa um usuário da aplicação. Ela define em seu construtor um
  * tipo de perfil do usuário.
@@ -13,7 +15,7 @@ package br.com.hyperclass.snackbar.domain.user;
  * @author João Batista
  * @version 1.0 11 de out de 2016
  */
-public class User {
+public class User implements Principal {
 	
 	private final PerfilAuthority perfilAuthority;
 
@@ -24,6 +26,12 @@ public class User {
 
 	public String getPerfilAuthority() {
 		return perfilAuthority.name();
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -6,6 +6,7 @@
  */
 package br.com.hyperclass.snackbar.infrastructure.security;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,30 +24,37 @@ import br.com.hyperclass.snackbar.domain.user.User;
  * @version 1.0 22 de out de 2016
  */
 
-public class UserSecurity implements UserDetails {
+public class UserSecurity implements UserDetails, Principal {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private final String login;
 	private final String password;
-	private final List<UserRole> userRoles;
+	private final Role role;
+	private final List<Role> roles;
 	
-	public UserSecurity(String login, String password) {
+	public UserSecurity(final String login, final String password, final Role role) {
 		super();
 		this.login = login;
 		this.password = password;
-		this.userRoles = new ArrayList<>();
+		this.role = role;
+		this.roles = new ArrayList<>();
 	}
 	
-	public void addUserRole(final UserRole userRole){
-		this.addUserRole(userRole);
+	public void addUserRole(final Role role){
+		this.addUserRole(role);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		addUserRole(new UserRole(new User(PerfilAuthority.ADMIN)));
-		addUserRole(new UserRole(new User(PerfilAuthority.COUNTER)));
-		return userRoles;
+		
+		final Role admin = new Role(PerfilAuthority.ADMIN);
+		final Role counter = new Role(PerfilAuthority.COUNTER);
+		
+		addUserRole(admin);
+		addUserRole(counter);
+		
+		return roles;
 	}
 
 	@Override
@@ -57,6 +65,10 @@ public class UserSecurity implements UserDetails {
 	@Override
 	public String getUsername() {
 		return login;
+	}
+
+	public Role getRole() {
+		return role;
 	}
 
 	@Override
@@ -77,6 +89,11 @@ public class UserSecurity implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	@Override
+	public String getName() {
+		return login;
 	}
 
 }
