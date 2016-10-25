@@ -6,10 +6,13 @@
  */
 package br.com.hyperclass.snackbar.infrastructure.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository;
 
 /**
  * 
@@ -20,11 +23,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserService implements UserDetailsService {
 	
-	//private final UserRepository userRepository;
+	private final UserSecurityRepository userRepository;
+	
+	@Autowired
+	public UserService(final UserSecurityRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return null;
+		return userRepository.loadUserByUsername(username);
 	}
 
 }

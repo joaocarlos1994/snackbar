@@ -21,9 +21,10 @@ import org.springframework.stereotype.Component;
 
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTParser;
-import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
-import com.voxpmo.opportunity.authentication.PreAuthenticatedAuthentication;
-import com.voxpmo.opportunity.domain.user.UserRepository;
+import com.nimbusds.jwt.JWTClaimsSet;
+import authentication.PreAuthenticatedAuthentication;
+import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository;
+
 
 /**
  * Class comments go here...
@@ -34,11 +35,11 @@ import com.voxpmo.opportunity.domain.user.UserRepository;
 @Component
 public class JwtAuthenticationManager implements AuthenticationManager {
 
-    private final UserRepository repository;
+    private final UserSecurityRepository repository;
     private final List<JwtVerifier> verifiersList = new ArrayList<>();
 
     @Autowired
-    public JwtAuthenticationManager(final UserRepository repository) {
+    public JwtAuthenticationManager(final UserSecurityRepository repository) {
         super();
         this.repository = repository;
     }
@@ -48,7 +49,7 @@ public class JwtAuthenticationManager implements AuthenticationManager {
     public Authentication authenticate(final Authentication auth) throws AuthenticationException {
         final String token = String.valueOf(auth.getPrincipal()).substring(6).trim();
         final JWT jwt;
-        final ReadOnlyJWTClaimsSet claims;
+        final JWTClaimsSet claims;
 
         try {
             jwt = JWTParser.parse(token);
@@ -62,7 +63,7 @@ public class JwtAuthenticationManager implements AuthenticationManager {
         }
 
         final String username = claims.getSubject();
-        return new PreAuthenticatedAuthentication(repository.getByUsername(username));
+        return new PreAuthenticatedAuthentication(repository.loadUserByUsername(username));
     }
 
     @Resource

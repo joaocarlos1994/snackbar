@@ -5,7 +5,7 @@
  * proprietary/confidential. Use is subject to license terms.
  */
 
-package com.voxpmo.opportunity.authentication.jwt;
+package authentication.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 

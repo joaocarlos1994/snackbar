@@ -9,7 +9,6 @@ package br.com.hyperclass.snackbar.infrastructure.security;
 import org.springframework.security.core.GrantedAuthority;
 
 import br.com.hyperclass.snackbar.domain.user.PerfilAuthority;
-import br.com.hyperclass.snackbar.domain.user.User;
 
 /**
  * 

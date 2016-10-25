@@ -36,7 +36,7 @@ public class ResponseHeaderAuthenticationListener implements AuthenticationListe
     private final JWSSigner signer;
 
     @Autowired
-    public ResponseHeaderAuthenticationListener(@Value("${jwt.secret}") final String secret) {
+    public ResponseHeaderAuthenticationListener(@Value("${jwt.secret}") final String secret) throws Exception {
         super();
         this.signer = new MACSigner(secret);
     }
@@ -44,13 +44,22 @@ public class ResponseHeaderAuthenticationListener implements AuthenticationListe
     /** {@inheritDoc} */
     @Override
     public void onAuthenticationSuccess(final AuthenticationEvent event) throws IOException {
-        final JWTClaimsSet claimsSet = new JWTClaimsSet();
-        final long now = System.currentTimeMillis();
-        claimsSet.setSubject(event.getUsername());
-        claimsSet.setIssueTime(new Date(now));
-        claimsSet.setIssuer("http://www.voxpmo.com");
-        claimsSet.setExpirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS));
-        claimsSet.setNotBeforeTime(new Date(now));
+        
+    	final long now = System.currentTimeMillis();
+    	
+    	final JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+        		.subject(event.getUsername())
+        		.issueTime(new Date(now))
+        		.issuer("http://www.voxpmo.com")
+        		.expirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS))
+        		.notBeforeTime(new Date(now))
+        		.build();
+        
+        //claimsSet.setSubject(event.getUsername());
+        //claimsSet.setIssueTime(new Date(now));
+        //claimsSet.setIssuer("http://www.voxpmo.com");
+        //claimsSet.setExpirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS));
+        //claimsSet.setNotBeforeTime(new Date(now));
 
         final SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
 

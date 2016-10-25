@@ -13,7 +13,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import com.nimbusds.jwt.JWT;
-import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
+import com.nimbusds.jwt.JWTClaimsSet;
 
 /**
  * Class comments go here...
@@ -27,7 +27,7 @@ public class NotBeforeTimeClaimsVerifier implements JwtVerifier {
     /** {@inheritDoc} */
     @Override
     public void verify(final JWT jwt) {
-        final ReadOnlyJWTClaimsSet claims;
+        final JWTClaimsSet claims;
         try {
             claims = jwt.getJWTClaimsSet();
         } catch (final ParseException exception) {
