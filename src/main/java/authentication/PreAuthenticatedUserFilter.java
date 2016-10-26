@@ -14,10 +14,21 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.Spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+
+import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTParser;
+
+import authentication.jwt.JwtSignatureVerifier;
+import br.com.hyperclass.snackbar.domain.user.UserRepository;
 
 /**
  * A classe <code>PreAuthenticatedUserFilter</code> é o filtro responsável por
@@ -35,6 +46,9 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
 public class PreAuthenticatedUserFilter extends AbstractPreAuthenticatedProcessingFilter {
 
     private static final String AUTHORIZATION = "Authorization";
+    
+    @Autowired
+    private UserRepository userRepository;
 
     /** {@inheritDoc} */
     @Override
@@ -51,7 +65,8 @@ public class PreAuthenticatedUserFilter extends AbstractPreAuthenticatedProcessi
     /** {@inheritDoc} */
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-        try {
+        
+    	/*try {
             super.doFilter(request, response, chain);
         } finally {
             SecurityContextHolder.clearContext();
@@ -60,6 +75,6 @@ public class PreAuthenticatedUserFilter extends AbstractPreAuthenticatedProcessi
                 session.removeAttribute("SPRING_SECURITY_CONTEXT");
             }
             //TokenRepository.clear();
-        }
+        }*/
     }
 }

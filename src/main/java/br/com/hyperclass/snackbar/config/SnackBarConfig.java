@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
@@ -28,6 +30,8 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
  * @version 1.0 14 de out de 2016
  */
 @Configuration
+@ComponentScan(basePackages = {"br.com.hyperclass.snackbar.infrastructure", "authentication"})
+@Import(SecurityConfiguration.class)
 public class SnackBarConfig {
 	
 	@Bean

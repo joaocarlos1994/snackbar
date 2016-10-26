@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -45,9 +45,9 @@ import authentication.jwt.JwtVerifier;
  * @author João Batista
  * @version 1.0 22 de out de 2016
  */
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@ComponentScan(basePackages = {})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -55,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private AuthenticationManager jwtAuthenticationManager;
 
 	@Autowired
+	@Qualifier("defaultAuthenticationSuccessHandler")
 	private AuthenticationSuccessHandler successHandler;
 
 	@Autowired
@@ -86,15 +87,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	/**
-	 * A <code>PreAuthenticatedUserFilter</code> extende a 
-	 * <code>AbstractPreAuthenticatedProcessingFilter</code> onde está classe é reponsavel por intercepectar
-	 * todas requisição e extrair o Token existente. Está classe também implementar o método
-	 * doFilter que é reponsável por delegar para o filtro existente a resolucao da requisicao.
+	 * A <code>PreAuthenticatedUserFilter</code> extende a
+	 * <code>AbstractPreAuthenticatedProcessingFilter</code> onde está classe é
+	 * reponsavel por intercepectar todas requisição e extrair o Token
+	 * existente. Está classe também implementar o método doFilter que é
+	 * reponsável por delegar para o filtro existente a resolucao da requisicao.
 	 * 
-	 * Assim criando um instância de PreAuthenticatedUserFilter (que é um Filter) podemos delegar para ele
-	 * o bean criado jwtAuthenticationManager onde ele irá retornara se o usuario foi atenticado com
-	 * sucesso. 
-	 * */
+	 * Assim criando um instância de PreAuthenticatedUserFilter (que é um
+	 * Filter) podemos delegar para ele o bean criado jwtAuthenticationManager
+	 * onde ele irá retornara se o usuario foi atenticado com sucesso.
+	 */
 	@Bean
 	public Filter preAuthenticationFilter() {
 		final PreAuthenticatedUserFilter filter = new PreAuthenticatedUserFilter();
@@ -117,6 +119,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
+	@Qualifier("authenticationListeners")
 	public List<AuthenticationListener> authenticationListeners(
 			@Qualifier("responseHeaderAuthenticationListener") final AuthenticationListener responseHeaderListener) {
 		final List<AuthenticationListener> list = new ArrayList<>(1);

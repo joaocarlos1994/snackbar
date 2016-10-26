@@ -14,6 +14,6 @@ package br.com.hyperclass.snackbar.domain.user;
  */
 public interface UserRepository {
 	
-	User getByUsername(final String name);
+	UserSnack getByUsername(final String name);
 	
 }

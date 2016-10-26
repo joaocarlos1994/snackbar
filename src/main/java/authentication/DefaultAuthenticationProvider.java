@@ -8,16 +8,12 @@
 package authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import br.com.hyperclass.snackbar.domain.user.UserRepository;
-
-
 
 /**
  * Class comments go here...
@@ -26,20 +22,23 @@ import br.com.hyperclass.snackbar.domain.user.UserRepository;
  * @version 1.0 3 de out de 2016
  */
 @Component
-public class DefaultAuthenticationProvider extends DaoAuthenticationProvider {
+public class DefaultAuthenticationProvider implements AuthenticationProvider {
 
-    private final UserRepository repository;
+	private final UserRepository repository;
 
-    @Autowired
-    public DefaultAuthenticationProvider(final UserRepository repository, final UserDetailsService service, final PasswordEncoder encoder) {
-        super();
-        setUserDetailsService(service);
-        setPasswordEncoder(encoder);
-        this.repository = repository;
-    }
+	@Autowired
+	public DefaultAuthenticationProvider(UserRepository repository) {
+		super();
+		this.repository = repository;
+	}
 
-    @Override
-    protected Authentication createSuccessAuthentication(final Object principal, final Authentication authentication, final UserDetails userDetails) {
-        return new PreAuthenticatedAuthentication(repository.getByUsername(((UserDetails) principal).getUsername()));
-    }
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		return new PreAuthenticatedAuthentication(repository.getByUsername(authentication.getName()));
+	}
+
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return authentication.equals(PreAuthenticatedAuthentication.class);
+	}
 }

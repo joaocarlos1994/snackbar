@@ -13,7 +13,7 @@ import java.util.List;
 
 import br.com.hyperclass.snackbar.domain.menu.Menu;
 import br.com.hyperclass.snackbar.domain.product.Product;
-import br.com.hyperclass.snackbar.domain.user.User;
+import br.com.hyperclass.snackbar.domain.user.UserSnack;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private final List<Product> productsOrder;
-	private User user;
+	private UserSnack user;
 	private final Menu menu;
 
 	public Order(final Menu menu) {
@@ -72,7 +72,7 @@ public class Order implements Serializable {
 		return menu.getProducts();
 	}
 	
-	public void setUser(User user) {
+	public void setUser(UserSnack user) {
 		this.user = user;
 	}
 
