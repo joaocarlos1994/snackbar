@@ -8,15 +8,14 @@
 package authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository;
+import br.com.hyperclass.snackbar.domain.user.UserRepository;
 
 
 
@@ -27,36 +26,20 @@ import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository
  * @version 1.0 3 de out de 2016
  */
 @Component
-public class DefaultAuthenticationProvider implements AuthenticationProvider {
+public class DefaultAuthenticationProvider extends DaoAuthenticationProvider {
 
-	private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	
-    private final UserSecurityRepository userSecurityRepository;
-    
+    private final UserRepository repository;
+
     @Autowired
-	public DefaultAuthenticationProvider(final UserSecurityRepository userSecurityRepository) {
-		super();
-		this.userSecurityRepository = userSecurityRepository;
-	}
+    public DefaultAuthenticationProvider(final UserRepository repository, final UserDetailsService service, final PasswordEncoder encoder) {
+        super();
+        setUserDetailsService(service);
+        setPasswordEncoder(encoder);
+        this.repository = repository;
+    }
 
-	@Override
-	public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
-		final String username = authentication.getName();
-		final String password = authentication.getCredentials().toString();
-		
-		UserDetails user = userSecurityRepository.loadUserByUsername(username);
-		if (encoder.matches(user.getPassword(), password)) {
-			Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
-			return auth;
-		}
-		return null;
-		//return new PreAuthenticatedAuthentication(authentication.getPrincipal(userService.loadUserByUsername(authentication.getName())));
-	}
-
-	@Override
-	public boolean supports(Class<?> authentication) {
-		return authentication.equals(UsernamePasswordAuthenticationToken.class);
-	}
-
-  
+    @Override
+    protected Authentication createSuccessAuthentication(final Object principal, final Authentication authentication, final UserDetails userDetails) {
+        return new PreAuthenticatedAuthentication(repository.getByUsername(((UserDetails) principal).getUsername()));
+    }
 }

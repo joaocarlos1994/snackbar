@@ -9,7 +9,7 @@ package authentication;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import br.com.hyperclass.snackbar.infrastructure.security.Role;
+import br.com.hyperclass.snackbar.domain.user.PerfilAuthority;
 
 /**
  * A classe <code>CMSGrantedAuthority</code> representa uma autoridade (em nivel
@@ -24,20 +24,20 @@ public class DefaultGrantedAuthority implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 
-    private final Role role;
+    private final PerfilAuthority perfilAuthority;
 
-    public DefaultGrantedAuthority(final Role role) {
+    public DefaultGrantedAuthority(final PerfilAuthority perfilAuthority) {
         super();
-        this.role = role;
+        this.perfilAuthority = perfilAuthority;
     }
 
     /** {@inheritDoc} */
     @Override
     public String getAuthority() {
-        return "ROLE_" + role.getAuthority();
+        return "ROLE_" + perfilAuthority.name();
     }
 
     public boolean isAdmin() {
-        return role.isAdmin();
+        return perfilAuthority.isAdmin(perfilAuthority.name());
     }
 }

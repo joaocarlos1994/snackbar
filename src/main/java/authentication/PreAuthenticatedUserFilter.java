@@ -55,10 +55,10 @@ public class PreAuthenticatedUserFilter extends AbstractPreAuthenticatedProcessi
             super.doFilter(request, response, chain);
         } finally {
             SecurityContextHolder.clearContext();
-           // final HttpSession session = httpServletRequest.getSession(false);
-           // if (session != null) {
-           //     session.removeAttribute("SPRING_SECURITY_CONTEXT");
-           // }
+            final HttpSession session = ((HttpServletRequest) request).getSession(false);
+            if (session != null) {
+                session.removeAttribute("SPRING_SECURITY_CONTEXT");
+            }
             //TokenRepository.clear();
         }
     }

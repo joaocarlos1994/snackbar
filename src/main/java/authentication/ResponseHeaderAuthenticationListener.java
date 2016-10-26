@@ -29,14 +29,14 @@ import com.nimbusds.jwt.SignedJWT;
  * @author Roberto Perillo
  * @version 1.0 05/02/2016
  */
-//@Component
+@Component
 public class ResponseHeaderAuthenticationListener implements AuthenticationListener {
 
     private static final long FIVE_HOURS_IN_MILLISECONDS = 60000 * 300;
     private final JWSSigner signer;
 
     @Autowired
-    public ResponseHeaderAuthenticationListener(@Value("${jwt.secret}") final String secret) throws Exception {
+    public ResponseHeaderAuthenticationListener(@Value("${jwt.secret}") final String secret) {
         super();
         this.signer = new MACSigner(secret);
     }
@@ -44,22 +44,13 @@ public class ResponseHeaderAuthenticationListener implements AuthenticationListe
     /** {@inheritDoc} */
     @Override
     public void onAuthenticationSuccess(final AuthenticationEvent event) throws IOException {
-        
-    	final long now = System.currentTimeMillis();
-    	
-    	final JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-        		.subject(event.getUsername())
-        		.issueTime(new Date(now))
-        		.issuer("http://www.voxpmo.com")
-        		.expirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS))
-        		.notBeforeTime(new Date(now))
-        		.build();
-        
-        //claimsSet.setSubject(event.getUsername());
-        //claimsSet.setIssueTime(new Date(now));
-        //claimsSet.setIssuer("http://www.voxpmo.com");
-        //claimsSet.setExpirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS));
-        //claimsSet.setNotBeforeTime(new Date(now));
+        final JWTClaimsSet claimsSet = new JWTClaimsSet();
+        final long now = System.currentTimeMillis();
+        claimsSet.setSubject(event.getUsername());
+        claimsSet.setIssueTime(new Date(now));
+        claimsSet.setIssuer("http://www.voxpmo.com");
+        claimsSet.setExpirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS));
+        claimsSet.setNotBeforeTime(new Date(now));
 
         final SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
 

@@ -23,7 +23,7 @@ public class JwtSignatureVerifier implements JwtVerifier {
 
     private final JWSVerifier verifier;
 
-    public JwtSignatureVerifier(final String secret) throws Exception {
+    public JwtSignatureVerifier(final String secret) {
         super();
         this.verifier = new MACVerifier(secret);
     }

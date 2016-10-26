@@ -14,5 +14,12 @@ package br.com.hyperclass.snackbar.domain.user;
  * @version 1.0 11 de out de 2016
  */
 public enum PerfilAuthority {
+	
 	COUNTER, ADMIN;
+	
+	public boolean isAdmin(final String perfilAuthority){
+		if (perfilAuthority.equals(ADMIN)) return true;
+		return false;
+	}
+	
 }

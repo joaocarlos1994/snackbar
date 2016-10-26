@@ -33,14 +33,11 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 
 import authentication.AuthenticationListener;
 import authentication.PreAuthenticatedUserFilter;
 import authentication.jwt.JwtSignatureVerifier;
 import authentication.jwt.JwtVerifier;
-import br.com.hyperclass.snackbar.infrastructure.persistence.UserPersistence;
-import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository;
 
 /**
  * 
@@ -50,66 +47,31 @@ import br.com.hyperclass.snackbar.infrastructure.security.UserSecurityRepository
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@ComponentScan(basePackages = { "br.com.hyperclass.snackbar.infrastructure", "authentication", "authentication" })
+@ComponentScan(basePackages = {})
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	/**
-	 * A classe interface <code>AuthenticationManager</code> tenta autenticar um
-	 * objeto passado por parametro retornando um object autenticacao preenchida
-	 * com seus papeis em caso de sucesso.
-	 * 
-	 * Classe que implementa deve identificar o método de Autenthenthication de
-	 * usuário e direciona-la para AuthenticationProvider apropriado.
-	 * 
-	 */
 	@Autowired
 	@Qualifier("jwtAuthenticationManager")
 	private AuthenticationManager jwtAuthenticationManager;
 
-	//@Autowired
-	//private AuthenticationSuccessHandler successHandler;
+	@Autowired
+	private AuthenticationSuccessHandler successHandler;
 
-	//@Autowired
-	//private AuthenticationFailureHandler failureHandler;
-	
+	@Autowired
+	private AuthenticationFailureHandler failureHandler;
+
 	@Autowired
 	@Qualifier("providerManager")
 	private AuthenticationManager providerManager;
 
-
-	/**
-	 * Method reponsability for authentic and authority
-	 */
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	public void configure(final HttpSecurity http) throws Exception {
 		http.addFilter(preAuthenticationFilter());
 		http.addFilter(loginFilter());
 		http.addFilter(anonymousFilter());
 		http.csrf().disable();
-		http.authorizeRequests().regexMatchers(HttpMethod.GET, "/order").authenticated();
+		http.authorizeRequests().regexMatchers(HttpMethod.GET, "/companies").authenticated();
 		http.authorizeRequests().anyRequest().authenticated();
-		http.authorizeRequests().antMatchers("/order").permitAll();
-	}
-
-	/**
-	 * Esse método adiciona um novo usuário no contexto do Spring Security This
-	 * method add one new user in contex Spring Security
-	 */
-	/*@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(new UserService(userRepository)).passwordEncoder(new BCryptPasswordEncoder());
-	}*/
-
-	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder(5);
-	}
-
-	@Bean
-	public Filter preAuthenticationFilter() {
-		final PreAuthenticatedUserFilter filter = new PreAuthenticatedUserFilter();
-		filter.setAuthenticationManager(jwtAuthenticationManager);
-		return filter;
 	}
 
 	@Bean
@@ -119,11 +81,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public Filter loginFilter() {
-		final UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
-		filter.setAuthenticationManager(providerManager);
-		//filter.setAuthenticationSuccessHandler(successHandler);
-		//filter.setAuthenticationFailureHandler(failureHandler);
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder(5);
+	}
+
+	/**
+	 * A <code>PreAuthenticatedUserFilter</code> extende a 
+	 * <code>AbstractPreAuthenticatedProcessingFilter</code> onde está classe é reponsavel por intercepectar
+	 * todas requisição e extrair o Token existente. Está classe também implementar o método
+	 * doFilter que é reponsável por delegar para o filtro existente a resolucao da requisicao.
+	 * 
+	 * Assim criando um instância de PreAuthenticatedUserFilter (que é um Filter) podemos delegar para ele
+	 * o bean criado jwtAuthenticationManager onde ele irá retornara se o usuario foi atenticado com
+	 * sucesso. 
+	 * */
+	@Bean
+	public Filter preAuthenticationFilter() {
+		final PreAuthenticatedUserFilter filter = new PreAuthenticatedUserFilter();
+		filter.setAuthenticationManager(jwtAuthenticationManager);
 		return filter;
 	}
 
@@ -132,15 +107,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new AnonymousAuthenticationFilter("anonymousUser");
 	}
 
-/*	@Bean
+	@Bean
+	public Filter loginFilter() {
+		final UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
+		filter.setAuthenticationManager(providerManager);
+		filter.setAuthenticationSuccessHandler(successHandler);
+		filter.setAuthenticationFailureHandler(failureHandler);
+		return filter;
+	}
+
+	@Bean
 	public List<AuthenticationListener> authenticationListeners(
 			@Qualifier("responseHeaderAuthenticationListener") final AuthenticationListener responseHeaderListener) {
 		final List<AuthenticationListener> list = new ArrayList<>(1);
 		list.add(responseHeaderListener);
 		return list;
-	}*/
+	}
 
-/*	@Bean
+	@Bean
 	public List<JwtVerifier> verifiersList(@Qualifier("issuerReferenceClaimsVerifier") final JwtVerifier issuerVerifier,
 			@Qualifier("notBeforeTimeClaimsVerifier") final JwtVerifier notBeforeTimeVerifier,
 			@Qualifier("referenceDateClaimsVerifier") final JwtVerifier referenceDateVerifier,
@@ -151,27 +135,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		verifiersList.add(notBeforeTimeVerifier);
 		verifiersList.add(referenceDateVerifier);
 		return verifiersList;
-	}*/
+	}
 
-/*	@Bean
-	@Qualifier("jwtSignatureVerifier") 
-	public JwtVerifier jwtSignatureVerifier(@Value("${jwt.secret}") final String secret) throws Exception {
+	@Bean
+	public JwtVerifier jwtSignatureVerifier(@Value("${jwt.secret}") final String secret) {
 		return new JwtSignatureVerifier(secret);
-	}*/
+	}
 
-/*	@Bean
+	@Bean
 	public MethodInvokingFactoryBean methodInvokingFactoryBean() {
 		final MethodInvokingFactoryBean methodInvokingFactoryBean = new MethodInvokingFactoryBean();
 		methodInvokingFactoryBean.setTargetClass(SecurityContextHolder.class);
 		methodInvokingFactoryBean.setTargetMethod("setStrategyName");
 		methodInvokingFactoryBean.setArguments(new Object[] { SecurityContextHolder.MODE_INHERITABLETHREADLOCAL });
 		return methodInvokingFactoryBean;
-	}*/
-	
-	@Bean
-	public UserSecurityRepository getUserSecurityRepository(){
-		final UserPersistence userPersistence = new UserPersistence();
-		return userPersistence;
 	}
 
 }

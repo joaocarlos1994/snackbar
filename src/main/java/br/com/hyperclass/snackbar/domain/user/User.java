@@ -15,7 +15,7 @@ import java.security.Principal;
  * @author João Batista
  * @version 1.0 11 de out de 2016
  */
-public class User implements Principal {
+public class User {
 	
 	private final PerfilAuthority perfilAuthority;
 
@@ -24,15 +24,7 @@ public class User implements Principal {
 		this.perfilAuthority = perfilAuthority;
 	}
 
-	public String getPerfilAuthority() {
-		return perfilAuthority.name();
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+	public PerfilAuthority getPerfilAuthority() {
+		return perfilAuthority;
+	}	
 }
