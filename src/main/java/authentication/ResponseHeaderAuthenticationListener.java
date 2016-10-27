@@ -48,7 +48,7 @@ public class ResponseHeaderAuthenticationListener implements AuthenticationListe
         final long now = System.currentTimeMillis();
         claimsSet.setSubject(event.getUsername());
         claimsSet.setIssueTime(new Date(now));
-        claimsSet.setIssuer("http://www.voxpmo.com");
+        claimsSet.setIssuer("http://localhost:8080/snackbar/");
         claimsSet.setExpirationTime(new Date(now + FIVE_HOURS_IN_MILLISECONDS));
         claimsSet.setNotBeforeTime(new Date(now));
 

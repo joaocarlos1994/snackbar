@@ -13,8 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.context.WebApplicationContext;
 
 import br.com.hyperclass.snackbar.domain.cashier.Cashier;
@@ -31,8 +33,14 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
  */
 @Configuration
 @ComponentScan(basePackages = {"br.com.hyperclass.snackbar.infrastructure", "authentication"})
+@PropertySource("classpath:authentication.properties")
 @Import(SecurityConfiguration.class)
 public class SnackBarConfig {
+	
+	@Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 	
 	@Bean
 	public Menu getMenu(){

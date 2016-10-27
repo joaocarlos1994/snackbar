@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,8 +34,8 @@ public class DefaultUserDetails implements UserDetailsService {
 	
 	private final UserRepository userRepository;
 	
-	
-    public DefaultUserDetails(UserRepository userRepository) {
+	@Autowired
+    public DefaultUserDetails(final UserRepository userRepository) {
 		super();
 		this.userRepository = userRepository;
 	}
