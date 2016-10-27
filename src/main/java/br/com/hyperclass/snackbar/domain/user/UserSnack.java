@@ -36,5 +36,12 @@ public class UserSnack {
 
 	public PerfilAuthority getPerfilAuthority() {
 		return perfilAuthority;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	
 }

@@ -32,7 +32,7 @@ public class IssuerReferenceClaimsVerifier implements JwtVerifier {
         } catch (final ParseException exception) {
             throw new JwtTokenException("Invalid JWT.");
         }
-        final String issuerReference = "http://www.voxpmo.com";
+        final String issuerReference = "http://localhost:8080/snackbar/";
         final String issuer = claims.getIssuer();
         if (!issuerReference.equals(issuer)) {
             throw new JwtTokenException("Invalid issuer");
