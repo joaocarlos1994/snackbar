@@ -8,10 +8,11 @@
 package authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.com.hyperclass.snackbar.domain.user.UserRepository;
@@ -23,23 +24,22 @@ import br.com.hyperclass.snackbar.domain.user.UserRepository;
  * @version 1.0 3 de out de 2016
  */
 @Component
-public class DefaultAuthenticationProvider implements AuthenticationProvider {
+public class DefaultAuthenticationProvider extends DaoAuthenticationProvider {
 
 	private final UserRepository repository;
 
 	@Autowired
-	public DefaultAuthenticationProvider(UserRepository repository) {
+	public DefaultAuthenticationProvider(final UserRepository repository, final UserDetailsService service, final PasswordEncoder encoder) {
 		super();
+		setUserDetailsService(service);
+        setPasswordEncoder(encoder);
 		this.repository = repository;
 	}
 
 	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		return new PreAuthenticatedAuthentication(repository.getByUsername(authentication.getName()));
+	protected Authentication createSuccessAuthentication(final Object principal, final Authentication authentication,
+			final UserDetails userDetails) {
+		return new PreAuthenticatedAuthentication(repository.getByUsername(((UserDetails) principal).getUsername()));
 	}
 
-	@Override
-	public boolean supports(Class<?> authentication) {
-		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
-	}
 }

@@ -51,9 +51,7 @@ public class PreAuthenticatedUserFilter extends AbstractPreAuthenticatedProcessi
     /** {@inheritDoc} */
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-        
     	final HttpServletRequest req = (HttpServletRequest) request;
-    	
     	try {
             super.doFilter(request, response, chain);
         } finally {
@@ -62,7 +60,6 @@ public class PreAuthenticatedUserFilter extends AbstractPreAuthenticatedProcessi
             if (session != null) {
                 session.removeAttribute("SPRING_SECURITY_CONTEXT");
             }
-            //TokenRepository.clear();
         }
     }
 }

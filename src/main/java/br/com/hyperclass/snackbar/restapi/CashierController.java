@@ -42,12 +42,12 @@ public class CashierController {
 		return new ResponseEntity<>(new SalesReportWrapper(cashier.saleByPeriod(salesDateWrapper.getDateInitial(), salesDateWrapper.getDateInitial())), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/cashier/order", method = RequestMethod.GET)
+	@RequestMapping(value = "/cashier/", method = RequestMethod.GET)
 	public ResponseEntity<ProductsWrapper> orderItemProducts() {
 		return new ResponseEntity<ProductsWrapper>(new ProductsWrapper(cashier.productsInCashier()), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/cashier/checkout", method = RequestMethod.POST)
+	@RequestMapping(value = "/cashier/", method = RequestMethod.POST)
 	public ResponseEntity<PaySaleWrapper> checkout(@RequestBody final PaySaleWrapper paySaleWrapper) throws Exception {
 		cashier.checkout(paySaleWrapper.getMoney(), paySaleWrapper.getTypeSale());
 		return new ResponseEntity<PaySaleWrapper>(HttpStatus.OK);	

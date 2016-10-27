@@ -7,9 +7,7 @@
 
 package authentication;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import br.com.hyperclass.snackbar.domain.user.PerfilAuthority;
 import br.com.hyperclass.snackbar.domain.user.UserRepository;
 import br.com.hyperclass.snackbar.domain.user.UserSnack;
 
@@ -43,22 +40,7 @@ public class DefaultUserDetails implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(final String name) throws UsernameNotFoundException {
-		
 		final UserSnack userSnack = userRepository.getByUsername(name);
-		
-		return new User(userSnack.getName(), userSnack.getPassword(), getAuthorities());
+		return new User(userSnack.getName(), userSnack.getPassword(), Collections.<GrantedAuthority> emptyList());
 	}
-	
-	private Collection<GrantedAuthority> getAuthorities(){
-		
-		final DefaultGrantedAuthority counter = new DefaultGrantedAuthority(PerfilAuthority.COUNTER);
-		final DefaultGrantedAuthority admin = new DefaultGrantedAuthority(PerfilAuthority.ADMIN);
-		
-		final List<GrantedAuthority> authorities = new ArrayList<>(2);
-		authorities.add(counter);
-		authorities.add(admin);
-		
-		return authorities;
-	}
-
 }

@@ -37,7 +37,7 @@ public class OrderController {
 		this.order = order;
 	}
 
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public ResponseEntity<ProductsWrapper> menuItemProducts() {
 		return new ResponseEntity<ProductsWrapper>(new ProductsWrapper(order.productsMenu()), HttpStatus.OK);
 	}
@@ -47,7 +47,7 @@ public class OrderController {
 		return new ResponseEntity<ProductsWrapper>(new ProductsWrapper(order.getProductsOrder()), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/order/add-item", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/order", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<ProductWrapper> addItemCart(@RequestBody final ProductWrapper productWrapper){
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		order.addItemCart(product);

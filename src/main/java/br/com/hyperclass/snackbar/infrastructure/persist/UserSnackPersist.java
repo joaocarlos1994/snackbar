@@ -42,8 +42,8 @@ public class UserSnackPersist implements UserRepository {
 		final  String joao = "joao";
 		final  String augusto = "augusto";
 		
-		final UserSnack admin = new UserSnack("joao", "123456", PerfilAuthority.ADMIN);
-		final UserSnack counter = new UserSnack("augusto", "123456", PerfilAuthority.COUNTER);
+		final UserSnack admin = new UserSnack("joao", "$2a$05$BplCFfrzw088NMi1tmuwKuSqu/gZwa8MomN2xE/cwuynaaTVnRX.W", PerfilAuthority.ADMIN);
+		final UserSnack counter = new UserSnack("augusto", "$2a$05$Li77Ai/eA7l60B/Zj.qsk.d6r1vKXp6..eHtbpDsgEb/TiEh/SPnu", PerfilAuthority.COUNTER);
 		
 		user.put(joao, admin);
 		user.put(augusto, counter);
