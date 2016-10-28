@@ -7,7 +7,9 @@
 
 package authentication;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,19 +30,28 @@ import br.com.hyperclass.snackbar.domain.user.UserSnack;
  */
 @Component
 public class DefaultUserDetails implements UserDetailsService {
-	
+
 	private final UserRepository userRepository;
-	
+
 	@Autowired
-    public DefaultUserDetails(final UserRepository userRepository) {
+	public DefaultUserDetails(final UserRepository userRepository) {
 		super();
 		this.userRepository = userRepository;
 	}
 
-
 	@Override
 	public UserDetails loadUserByUsername(final String name) throws UsernameNotFoundException {
 		final UserSnack userSnack = userRepository.getByUsername(name);
-		return new User(userSnack.getName(), userSnack.getPassword(), Collections.<GrantedAuthority> emptyList());
+		return new User(userSnack.getName(), userSnack.getPassword(), getAuthorities(userSnack));
 	}
+
+	private Collection<GrantedAuthority> getAuthorities(final UserSnack userSnack) {
+
+		final DefaultGrantedAuthority defaultGrantedAuthority = new DefaultGrantedAuthority(userSnack.getPerfilAuthority());
+		final List<GrantedAuthority> authorities = new ArrayList<>(1);
+		authorities.add(defaultGrantedAuthority);
+
+		return authorities;
+	}
+
 }
