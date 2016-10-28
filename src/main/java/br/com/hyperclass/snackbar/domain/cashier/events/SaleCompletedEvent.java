@@ -13,7 +13,10 @@ import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
 
 /**
- * 
+ * A <code>SaleCompletedEvent</code> recebe como padrao o tipo de venda e Order
+ * assim passamos SaleContextSale para o source do evento, assim podemos sobreescrever
+ * o getSource() para retorna o SaleContextSale, recuperando assim todas propriedades
+ * deste contexto. 
  * 
  * @author João Batista
  * @version 1.0 23 de out de 2016

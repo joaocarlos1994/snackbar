@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.EventObject;
 
 /**
- * 
+ * A <code>EventSale</code> recebe por padrao a classe <code>ContextEventSale</code> que e
+ * a fonte do evento, ela estende a classe EventObject. Ela retorna o tipo do evento e a
+ * data que ocorreu o evento.
  * 
  * @author João Batista
  * @version 1.0 14 de out de 2016

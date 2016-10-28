@@ -33,27 +33,27 @@ public class StockController {
 	private final Stock stock;
 
 	@Autowired
-	public StockController(Stock stock) {
+	public StockController(final Stock stock) {
 		super();
 		this.stock = stock;
 	}
 	
-	@RequestMapping(value = "/stock/add-item", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<ProductWrapper> addItem(@RequestBody final ProductWrapper productWrapper){
+	@RequestMapping(value = "/stock/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<ProductWrapper> addItemStock(@RequestBody final ProductWrapper productWrapper){
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		stock.addItemStock(product);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/stock/add-item", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<ProductWrapper> removeItem(@RequestBody final ProductWrapper productWrapper) throws StockException{
+	@RequestMapping(value = "/stock/", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<ProductWrapper> removeItemStock(@RequestBody final ProductWrapper productWrapper) throws StockException{
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		stock.removeItemStock(product);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/stock", method = RequestMethod.GET)
-	public ResponseEntity<ProductsWrapper> menuItemProducts() {
+	@RequestMapping(value = "/stock/", method = RequestMethod.GET)
+	public ResponseEntity<ProductsWrapper> orderItemProducts() {
 		return new ResponseEntity<ProductsWrapper>(new ProductsWrapper(stock.getProducts()), HttpStatus.OK);
 	}
 	

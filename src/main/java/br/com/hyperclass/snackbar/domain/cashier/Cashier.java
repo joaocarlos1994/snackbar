@@ -24,7 +24,9 @@ import br.com.hyperclass.snackbar.domain.stock.Stock;
 import br.com.hyperclass.snackbar.util.Observer;
 
 /**
- * 
+ * A <code>Cashier</code> representa um caixa onde recebe uma lista de pedidos,
+ * ela tem por finalidade exibir os relatorios das vendas, fazer finalizacao das vendas
+ * e notificar o estoque sobre as vendas que ocorreram. 
  * 
  * @author João Batista
  * @version 1.0 11 de out de 2016
@@ -42,6 +44,13 @@ public class Cashier {
 		this.observerCashier = new ArrayList<>();
 	}
 	
+	/**
+	 * O <code>checkout</code> tem por finalidade finalizar uma venda que esta no caixa, no
+	 * caso de não existir nenhuma lista com as vendas, e criado uma lista e adicionado o um
+	 * evento de venda nesta lista, caso exista esta venda ele recupera a lista existente e
+	 * adiciona o novo evento na lista existente.
+	 * 
+	 * */
 	@SuppressWarnings("deprecation")
 	public void checkout(final double money, final String saleType) throws Exception{
 		
@@ -84,6 +93,13 @@ public class Cashier {
 		return Collections.unmodifiableList(salesEvent.get(date));
 	}*/
 	
+	/**
+	 * Este metodo tem por finalidade retornar uma lista com as vendas que acontecerem em 
+	 * determinado momento.
+	 * 
+	 * @param time1 dataInicial 
+	 * @param time2 dataFinal
+	 * */
 	public Map<Date, List<EventSale>> saleByPeriod(final long time1, final long time2){
 		
 		final Map<Date, List<EventSale>> eventsForPerido = new WeakHashMap<>();

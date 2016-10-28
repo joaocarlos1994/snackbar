@@ -13,7 +13,8 @@ import br.com.hyperclass.snackbar.domain.order.Order;
 import br.com.hyperclass.snackbar.domain.product.Product;
 
 /**
- * 
+ * A <code>SaleContextSale</code> este classe ContextEventSale, ela recebe por padrao
+ * um Orde, retornando assim as propriedades interssante por cada evento.
  * 
  * @author João Batista
  * @version 1.0 14 de out de 2016

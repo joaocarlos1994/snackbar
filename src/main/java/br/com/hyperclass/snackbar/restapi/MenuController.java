@@ -42,14 +42,14 @@ public class MenuController {
 		return new ResponseEntity<>(new ProductsWrapper(menu.getProducts()), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/menu/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/menu", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<ProductWrapper> registerProduct(@RequestBody final ProductWrapper productWrapper){
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		menu.addProductMenu(product);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/menu/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/menu/", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<ProductWrapper> deleteProduct(@RequestBody final ProductWrapper productWrapper){
 		final Product product = new Product(productWrapper.getName(), productWrapper.getPrice());
 		menu.removeProductMenu(product);

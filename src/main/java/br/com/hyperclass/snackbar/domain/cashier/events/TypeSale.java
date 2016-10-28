@@ -7,7 +7,7 @@
 package br.com.hyperclass.snackbar.domain.cashier.events;
 
 /**
- * 
+ * A <code>TypeSale</code> representa o tipo de vendas disponivel na aplicacao.
  * 
  * @author João Batista
  * @version 1.0 13 de out de 2016

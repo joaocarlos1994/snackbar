@@ -32,12 +32,12 @@ public class RoleVetor implements AccessDecisionVoter<Object> {
 	}
 
 	@Override
-	public boolean supports(Class<?> clazz) {
+	public boolean supports(final Class<?> clazz) {
 		return true;
 	}
 
 	@Override
-	public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes) {
+	public int vote(final Authentication authentication, final  Object object, final Collection<ConfigAttribute> attributes) {
 		int result = ACCESS_ABSTAIN;
 		final String username = authentication.getName();
 		for (ConfigAttribute attribute : attributes) {

@@ -9,7 +9,8 @@ package br.com.hyperclass.snackbar.domain.cashier.events;
 import java.util.Date;
 
 /**
- * 
+ * A <code>ContextEventSale</code> e uma classe de evento de contexto onde tem o 
+ * dia por evento e tipo de venda.
  * 
  * @author João Batista
  * @version 1.0 14 de out de 2016
