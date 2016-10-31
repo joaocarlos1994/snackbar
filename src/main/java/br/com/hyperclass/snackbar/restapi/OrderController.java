@@ -21,7 +21,9 @@ import br.com.hyperclass.snackbar.restapi.wrapper.ProductWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 
 /**
- * 
+ * A <code>OrderController</code> contem as rotas para adicionar um produto ao pedido,
+ * assim como remover esses produtos. Também é possivel verifica todos produtos que 
+ * contem no pedido.
  * 
  * @author João Batista
  * @version 1.0 18 de out de 2016

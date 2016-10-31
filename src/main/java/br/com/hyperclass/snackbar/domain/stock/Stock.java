@@ -14,7 +14,10 @@ import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.util.Observer;
 
 /**
- * 
+ * A <code>Stock</code> contem uma lista de produtos disponivel na aplicacao,
+ * ela possui metodos de adicionar e remover produtos do estoque. Ela imple-
+ * menta a interface Observer para fazer atualizacao automatica do estoque
+ * conforme uma venda.
  * 
  * @author João Batista
  * @version 1.0 13 de out de 2016

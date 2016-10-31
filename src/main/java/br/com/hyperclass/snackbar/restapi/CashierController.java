@@ -21,7 +21,8 @@ import br.com.hyperclass.snackbar.restapi.wrapper.SalesDateWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.SalesReportWrapper;
 
 /**
- * 
+ * A <code>CashierController</code> contem as rotas para pesquisa de vendas por dia e por periodo,
+ * ela contem uma rota para finaliazacao de um pedido tambem.
  * 
  * @author João Batista
  * @version 1.0 19 de out de 2016

@@ -16,6 +16,8 @@ import br.com.hyperclass.snackbar.domain.user.UserRepository;
 import br.com.hyperclass.snackbar.domain.user.UserSnack;
 
 /**
+ * A <code>UserSnackPersist</code> simula um tabela de um banco de dados,
+ * onde contem uma Map com o nome do usuario e seus respectivo usuario.
  * 
  * 
  * @author João Batista

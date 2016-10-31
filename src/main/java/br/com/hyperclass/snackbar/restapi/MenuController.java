@@ -21,7 +21,8 @@ import br.com.hyperclass.snackbar.restapi.wrapper.ProductWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 
 /**
- * 
+ * A <code>MenuController</code> contem as rotas para adicionar produtos ao menu e remover.
+ * Ela tambem contem uma rota para mostrar os produtos disponivel.
  * 
  * @author João Batista
  * @version 1.0 14 de out de 2016

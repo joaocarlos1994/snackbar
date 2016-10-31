@@ -22,7 +22,8 @@ import br.com.hyperclass.snackbar.restapi.wrapper.ProductWrapper;
 import br.com.hyperclass.snackbar.restapi.wrapper.ProductsWrapper;
 
 /**
- * 
+ * A <code>StockController</code> contem as rotas para adicionar produtos e remover produtos
+ * do Stock, tambem contem a rota de mostrar todos produtos disponivel.
  * 
  * @author João Batista
  * @version 1.0 27 de out de 2016

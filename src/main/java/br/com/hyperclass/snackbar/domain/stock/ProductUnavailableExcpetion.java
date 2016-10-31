@@ -7,7 +7,8 @@
 package br.com.hyperclass.snackbar.domain.stock;
 
 /**
- * 
+ * A <code>ProductUnavailableExcpetion</code> representa um erro de produto
+ * indisponivel para ser removido do stock.
  * 
  * @author João Batista
  * @version 1.0 21 de out de 2016

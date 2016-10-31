@@ -16,7 +16,10 @@ import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.domain.user.UserSnack;
 
 /**
- * 
+ * A <code>Order</code> tem uma lista produtos, onde e possivel adicionar
+ * novos produtos e remover produtos, conforme a vontade do cliente, ela
+ * possui funcoes para retornar o valor total dos produtos, como a quantidade
+ * de itens que ele tem.
  * 
  * @author João Batista
  * @version 1.0 11 de out de 2016

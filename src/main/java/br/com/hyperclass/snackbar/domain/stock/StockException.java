@@ -7,7 +7,8 @@
 package br.com.hyperclass.snackbar.domain.stock;
 
 /**
- * 
+ * A <code>StockException</code> representa uma excecao generica do Stock,
+ * onde todas excecao irao herdar desta classse.
  * 
  * @author João Batista
  * @version 1.0 21 de out de 2016

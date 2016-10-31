@@ -14,7 +14,10 @@ import br.com.hyperclass.snackbar.domain.product.Product;
 import br.com.hyperclass.snackbar.domain.stock.Stock;
 
 /**
- * 
+ * A <code>Menu</code> tem todos produtos disponivel e indisponivel,
+ * nela e possivel adcionar novos produtos ao menu, assim como excluir.
+ * Ela também possuí um metodo que verifica se existe produtos disponivel
+ * no Stock.
  * 
  * @author João Batista
  * @version 1.0 13 de out de 2016
