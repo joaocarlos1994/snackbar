@@ -27,7 +27,7 @@ public class ContextEventSale {
 	}
 
 	public Date getDate() {
-		return date;
+		return new Date(date.getTime());
 	}
 
 	public TypeSale getTypeSale() {
